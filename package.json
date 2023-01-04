@@ -8,8 +8,11 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/http/server.ts",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
-    "run": "npx typeorm-ts-node-commonjs migration:run -d src/shared/typeorm"
+    "typeormaa": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli -d src/shared/typeorm/index.ts",
+    "migration:run": "npx typeorm-ts-node-commonjs migration:run -d src/shared/typeorm",
+    "migration:revert": "npx typeorm-ts-node-commonjs migration:revert -d src/shared/typeorm",
+    "migration:generate": "npm run typeorm -- migration:generate src/shared/typeorm/migrations/%npm_config_name%"
   },
   "repository": {
     "type": "git",

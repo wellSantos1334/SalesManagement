@@ -1,7 +1,7 @@
 import AppError from '@shared/errors/AppError';
-import { IsNull } from 'typeorm';
-import Product from '../typeorm/entities/Product';
-import { ProductsRepository } from '../typeorm/repositories/ProductsRepository';
+import { IProductCreate } from '../infra/interfaces/IProduct';
+import { ProductsRepository } from '../infra/typeorm/repositories/ProductsRepository';
+import { IProductsRepository } from '../interfaces/IProductsRepository';
 // import { appDataSource } from '@shared/typeorm';
 
 interface IProduct {
@@ -11,20 +11,19 @@ interface IProduct {
 }
 
 class CreateProductService {
-  public async execute({ name, price, quantity }: IProduct): Promise<Product> {
-    const productExists = await ProductsRepository.findByName(name);
+  public async execute({ name, price, quantity }: IProductCreate): Promise<IProductCreate> {
+    const productsRepository: IProductsRepository = new ProductsRepository();
+    const productExists = await productsRepository.findByName(name);
 
     if (productExists) {
       throw new AppError('Produto já existe');
     }
 
-    const product = ProductsRepository.create({
+    const product = productsRepository.create({
       name,
       price,
       quantity,
     });
-
-    await ProductsRepository.save(product);
 
     return product;
   }

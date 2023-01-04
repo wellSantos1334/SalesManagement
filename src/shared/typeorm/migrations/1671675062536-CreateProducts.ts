@@ -1,4 +1,3 @@
-import { query } from 'express';
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export class CreateProducts1671675062536 implements MigrationInterface {
@@ -11,7 +10,8 @@ export class CreateProducts1671675062536 implements MigrationInterface {
             name: 'id',
             type: 'int',
             isPrimary: true,
-            // generationStrategy: 'uuid',
+            isGenerated: true,
+            generationStrategy: 'increment',
           },
           {
             name: 'name',
