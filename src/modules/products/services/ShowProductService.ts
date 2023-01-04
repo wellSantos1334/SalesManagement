@@ -1,14 +1,12 @@
-import Product from '../typeorm/entities/Product';
-import { ProductsRepository } from '../typeorm/repositories/ProductsRepository';
+// import Product from '../typeorm/entities/Product';
+import { IProductTakeId } from '../infra/interfaces/IProduct';
+import { ProductsRepository } from '../infra/typeorm/repositories/ProductsRepository';
 // import { appDataSource } from '@shared/typeorm';
-
-interface IProduct {
-  id: number;
-}
-
 class ShowProductService {
-  public async execute({ id }: IProduct): Promise<Product | null> {
-    const product = await ProductsRepository.findOneBy({ id: id });
+  public async execute({ id }: IProductTakeId): Promise<IProductTakeId | null> {
+    const productRepository = new ProductsRepository();
+
+    const product = await productRepository.show(id);
 
     return product;
   }

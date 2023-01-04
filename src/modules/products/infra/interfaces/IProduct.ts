@@ -6,3 +6,4 @@ export interface IProduct {
 }
 
 export type IProductCreate = Omit<IProduct, 'id'>;
+export type IProductTakeId = Omit<IProduct, 'name' | 'price' | 'quantity'>;

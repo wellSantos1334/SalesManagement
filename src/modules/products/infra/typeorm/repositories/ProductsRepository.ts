@@ -48,4 +48,14 @@ export class ProductsRepository implements IProductsRepository {
 
     return product;
   }
+
+  async show(id: number): Promise<IProduct | null> {
+    const product = this.ormRepository.findOne({
+      where: {
+        id,
+      },
+    });
+
+    return product;
+  }
 }

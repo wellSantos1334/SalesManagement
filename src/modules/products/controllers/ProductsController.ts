@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
+import { IProductTakeId } from '../infra/interfaces/IProduct';
 import CreateProductService from '../services/CreateProductService';
 import ListProductService from '../services/ListProductService';
 // import DeleteProductService from '../services/DeleteProductService';
 // import ListProductService from '../services/ListProductService';
-// import ShowProductService from '../services/ShowProductService';
+import ShowProductService from '../services/ShowProductService';
 // import UpdateProductService from '../services/UpdateProductService';
 
 export default class ProductsController {
@@ -14,15 +15,15 @@ export default class ProductsController {
     return res.status(200).json(products);
   }
 
-  // public async show(req: Request, res: Response): Promise<Response> {
-  //   const id = parseInt(req.params.id);
+  public async show(req: Request<IProductTakeId>, res: Response): Promise<Response> {
+    const { id } = req.params;
 
-  //   const showProduct = new ShowProductService();
+    const showProduct = new ShowProductService();
 
-  //   const product = await showProduct.execute({ id: id });
+    const product = await showProduct.execute({ id });
 
-  //   return res.json(product);
-  // }
+    return res.json(product);
+  }
 
   public async create(req: Request, res: Response): Promise<Response> {
     const { name, price, quantity } = req.body;
