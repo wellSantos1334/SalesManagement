@@ -24,19 +24,19 @@ export default class ProductsController {
   //   return res.json(product);
   // }
 
-  // public async create(req: Request, res: Response): Promise<Response> {
-  //   const { name, price, quantity } = req.body;
+  public async create(req: Request, res: Response): Promise<Response> {
+    const { name, price, quantity } = req.body;
 
-  //   const createProduct = new CreateProductService();
+    const createProduct = new CreateProductService();
 
-  //   const product = await createProduct.execute({
-  //     name,
-  //     price,
-  //     quantity,
-  //   });
+    const product = await createProduct.execute({
+      name,
+      price,
+      quantity,
+    });
 
-  //   return res.json({ msg: 'Usuário criado com sucesso.', product });
-  // }
+    return res.json({ msg: 'Usuário criado com sucesso.', product });
+  }
 
   // public async update(req: Request, res: Response): Promise<Response> {
   //   const { name, price, quantity } = req.body;

@@ -2,13 +2,6 @@ import AppError from '@shared/errors/AppError';
 import { IProductCreate } from '../infra/interfaces/IProduct';
 import { ProductsRepository } from '../infra/typeorm/repositories/ProductsRepository';
 import { IProductsRepository } from '../interfaces/IProductsRepository';
-// import { appDataSource } from '@shared/typeorm';
-
-interface IProduct {
-  name: string;
-  price: number;
-  quantity: number;
-}
 
 class CreateProductService {
   public async execute({ name, price, quantity }: IProductCreate): Promise<IProductCreate> {
