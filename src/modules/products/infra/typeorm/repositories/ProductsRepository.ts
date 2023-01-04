@@ -58,4 +58,15 @@ export class ProductsRepository implements IProductsRepository {
 
     return product;
   }
+
+  async update({ id, name, price, quantity }: IProduct): Promise<IProduct> {
+    const product = this.ormRepository.save({
+      id,
+      name,
+      price,
+      quantity,
+    });
+
+    return product;
+  }
 }

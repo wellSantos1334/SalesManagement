@@ -1,37 +1,28 @@
 import AppError from '@shared/errors/AppError';
-import Product from '../typeorm/entities/Product';
-import { ProductsRepository } from '../typeorm/repositories/ProductsRepository';
+import { IProduct } from '../infra/interfaces/IProduct';
+import { ProductsRepository } from '../infra/typeorm/repositories/ProductsRepository';
 // import { appDataSource } from '@shared/typeorm';
-
-interface IProduct {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-}
-
 class UpdateProductService {
-  public async execute({
-    id,
-    name,
-    price,
-    quantity,
-  }: IProduct): Promise<Product> {
-    const product = await ProductsRepository.findOneBy({ id: id });
-    const productExists = await ProductsRepository.findByName(name);
+  public async execute({ id, name, price, quantity }: IProduct): Promise<IProduct> {
+    const productsRepository = new ProductsRepository();
+
+    const product = await productsRepository.show(id);
+
+    const productExists = await productsRepository.findByName(name);
+
     if (!product) {
       throw new AppError('Produto não encontrado.');
     }
 
     if (productExists && name != product.name) {
-      throw new AppError('O nome informado já existe,');
+      throw new AppError('O nome informado já existe');
     }
 
     product.name = name;
     product.price = price;
     product.quantity = quantity;
 
-    await ProductsRepository.save(product);
+    await productsRepository.update(product);
 
     return product;
   }

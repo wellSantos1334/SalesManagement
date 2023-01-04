@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
-import { IProductTakeId } from '../infra/interfaces/IProduct';
+import { IProduct, IProductTakeId } from '../infra/interfaces/IProduct';
 import CreateProductService from '../services/CreateProductService';
 import ListProductService from '../services/ListProductService';
 // import DeleteProductService from '../services/DeleteProductService';
 // import ListProductService from '../services/ListProductService';
 import ShowProductService from '../services/ShowProductService';
+import UpdateProductService from '../services/UpdateProductService';
 // import UpdateProductService from '../services/UpdateProductService';
 
 export default class ProductsController {
@@ -39,21 +40,21 @@ export default class ProductsController {
     return res.json({ msg: 'Usuário criado com sucesso.', product });
   }
 
-  // public async update(req: Request, res: Response): Promise<Response> {
-  //   const { name, price, quantity } = req.body;
-  //   const id = parseInt(req.params.id);
+  public async update(req: Request<IProduct>, res: Response): Promise<Response> {
+    const { name, price, quantity } = req.body;
+    const { id } = req.params;
 
-  //   const updateProduct = new UpdateProductService();
+    const updateProduct = new UpdateProductService();
 
-  //   const product = await updateProduct.execute({
-  //     id,
-  //     name,
-  //     price,
-  //     quantity,
-  //   });
+    const product = await updateProduct.execute({
+      id,
+      name,
+      price,
+      quantity,
+    });
 
-  //   return res.json({ msg: 'Usuário alterado com sucesso.', product });
-  // }
+    return res.json({ msg: 'Usuário alterado com sucesso.', product });
+  }
 
   // public async delete(req: Request, res: Response): Promise<any> {
   //   const id = parseInt(req.params.id);
