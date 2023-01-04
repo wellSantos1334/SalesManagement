@@ -40,7 +40,11 @@ export class ProductsRepository implements IProductsRepository {
   }
 
   async list(): Promise<IProduct[]> {
-    const product = this.ormRepository.find();
+    const product = this.ormRepository.find({
+      order: {
+        id: 'DESC',
+      },
+    });
 
     return product;
   }
