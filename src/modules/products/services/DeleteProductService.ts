@@ -1,21 +1,19 @@
 import AppError from '@shared/errors/AppError';
-import { ProductsRepository } from '../typeorm/repositories/ProductsRepository';
+import { IProductTakeId } from '../infra/interfaces/IProduct';
+import { ProductsRepository } from '../infra/typeorm/repositories/ProductsRepository';
 // import { appDataSource } from '@shared/typeorm';
 
-interface IProduct {
-  id: number;
-}
-
-class DeleteProductService {
-  public async execute({ id }: IProduct): Promise<any> {
-    const product = await ProductsRepository.findOneBy({ id: id });
+export default class DeleteProductService {
+  public async execute({ id }: IProductTakeId): Promise<IProductTakeId> {
+    const productsRepository = new ProductsRepository();
+    const product = await productsRepository.show(id);
 
     if (!product) {
-      throw new AppError('Produto não encontrado.');
+      throw new AppError('Produto não encontrado!');
     }
 
-    await ProductsRepository.remove(product);
+    await productsRepository.delete(product.id);
+
+    return product;
   }
 }
-
-export default DeleteProductService;

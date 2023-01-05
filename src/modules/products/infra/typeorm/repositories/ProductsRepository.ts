@@ -69,4 +69,10 @@ export class ProductsRepository implements IProductsRepository {
 
     return product;
   }
+
+  async delete(id: number): Promise<IProduct | unknown> {
+    const data = this.ormRepository.delete({ id });
+
+    return data;
+  }
 }

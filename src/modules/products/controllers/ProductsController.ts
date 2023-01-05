@@ -1,12 +1,10 @@
 import { Request, Response } from 'express';
 import { IProduct, IProductTakeId } from '../infra/interfaces/IProduct';
 import CreateProductService from '../services/CreateProductService';
+import DeleteProductService from '../services/DeleteProductService';
 import ListProductService from '../services/ListProductService';
-// import DeleteProductService from '../services/DeleteProductService';
-// import ListProductService from '../services/ListProductService';
 import ShowProductService from '../services/ShowProductService';
 import UpdateProductService from '../services/UpdateProductService';
-// import UpdateProductService from '../services/UpdateProductService';
 
 export default class ProductsController {
   public async index(req: Request, res: Response) {
@@ -56,13 +54,15 @@ export default class ProductsController {
     return res.json({ msg: 'Usuário alterado com sucesso.', product });
   }
 
-  // public async delete(req: Request, res: Response): Promise<any> {
-  //   const id = parseInt(req.params.id);
+  public async delete(req: Request<IProductTakeId>, res: Response): Promise<Response> {
+    const { id } = req.params;
 
-  //   const deleteProduct = new DeleteProductService();
+    const deleteProduct = new DeleteProductService();
 
-  //   await deleteProduct.execute({ id });
+    const product = await deleteProduct.execute({
+      id,
+    });
 
-  //   return res.json('Produto deletado com sucesso.');
-  // }
+    return res.status(200).json({ msg: 'Produto deletado com sucesso', product });
+  }
 }
