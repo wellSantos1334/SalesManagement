@@ -58,4 +58,10 @@ export class UserRepository implements IUserRepository {
 
     return list;
   }
+
+  async update(data: IUser): Promise<IUser | null> {
+    const user = this.ormRepository.save(data);
+
+    return user;
+  }
 }

@@ -1,8 +1,10 @@
 import AppError from '@shared/errors/AppError';
 import { Request, Response } from 'express';
+import { IUser } from '../infra/interfaces/IUser';
 import CreateUserService from '../services/CreateUserService';
 import ListUserService from '../services/ListUserService';
 import ShowUserService from '../services/ShowUserService';
+import UpdateUserService from '../services/UpdateUserService';
 
 export default class UsersController {
   public async create(req: Request, res: Response): Promise<Response> {
@@ -40,5 +42,25 @@ export default class UsersController {
     const users = await listUser.execute();
 
     return res.status(200).json({ users });
+  }
+
+  public async update(req: Request<IUser>, res: Response): Promise<Response> {
+    const { name, email, password, password2, avatar } = req.body;
+    const { id } = req.params;
+    const updateUser = new UpdateUserService();
+
+    if (password != password2) {
+      throw new AppError('password doesnt match');
+    }
+
+    const user = await updateUser.execute({
+      id,
+      name,
+      email,
+      password,
+      avatar,
+    });
+
+    return res.status(200).json({ msg: 'User updated', user });
   }
 }

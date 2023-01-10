@@ -38,4 +38,22 @@ userRouter.get(
 // find all users
 userRouter.get('/', userController.list);
 
+// update an specific user
+userRouter.put(
+  '/:id',
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required().min(3),
+      email: Joi.string().required().email().lowercase(),
+      password: Joi.string().required().min(10).max(15),
+      password2: Joi.any()
+        .valid(Joi.ref('password'))
+        .required()
+        .label('Confirm password')
+        .messages({ 'any.one': '{{#label}} does not match' }),
+      avatar: Joi.string().required(),
+    },
+  }),
+  userController.update,
+);
 export default userRouter;
