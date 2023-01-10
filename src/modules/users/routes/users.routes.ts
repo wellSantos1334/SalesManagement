@@ -5,6 +5,7 @@ import UsersController from '../controllers/UsersController';
 const userRouter = Router();
 const userController = new UsersController();
 
+// create user route
 userRouter.post(
   '/',
   celebrate({
@@ -21,6 +22,17 @@ userRouter.post(
     },
   }),
   userController.create,
+);
+
+// find user by id
+userRouter.get(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.number().required(),
+    },
+  }),
+  userController.findById,
 );
 
 export default userRouter;

@@ -7,4 +7,3 @@ export interface IUser {
 }
 
 export type IUserCreate = Omit<IUser, 'id'>;
-export type IProductTakeId = Omit<IUser, 'name' | 'email' | 'password' | 'avatar'>;
