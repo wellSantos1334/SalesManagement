@@ -48,4 +48,14 @@ export class UserRepository implements IUserRepository {
 
     return newUser;
   }
+
+  async list(): Promise<IUser[] | null> {
+    const list = this.ormRepository.find({
+      order: {
+        id: 'DESC',
+      },
+    });
+
+    return list;
+  }
 }

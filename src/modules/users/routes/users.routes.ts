@@ -35,4 +35,7 @@ userRouter.get(
   userController.findById,
 );
 
+// find all users
+userRouter.get('/', userController.list);
+
 export default userRouter;

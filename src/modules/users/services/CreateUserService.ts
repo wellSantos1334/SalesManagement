@@ -16,7 +16,7 @@ export default class CreateUserService {
       throw new AppError('Email already exists');
     }
 
-    const newUser = userRepository.create({
+    const newUser = await userRepository.create({
       name,
       email,
       password,

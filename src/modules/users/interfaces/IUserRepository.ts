@@ -1,4 +1,3 @@
-// import { IUser, IUserCreate } from '../infra/interfaces/IUser';
 import { IUser, IUserCreate } from '../infra/interfaces/IUser';
 
 export interface IUserRepository {
@@ -7,4 +6,5 @@ export interface IUserRepository {
   findById(id: number): Promise<IUser | null>;
   findByEmail(email: string): Promise<IUser | null>;
   create(data: IUserCreate): Promise<IUser>;
+  list(): Promise<IUser[] | null>;
 }
