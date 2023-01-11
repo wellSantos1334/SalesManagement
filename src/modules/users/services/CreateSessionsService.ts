@@ -4,6 +4,7 @@ import { UserRepository } from '../infra/typeorm/repositories/UsersRepository';
 import { IUserRepository } from '../interfaces/IUserRepository';
 import { compare } from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+import authConfig from '../../../config/auth';
 
 interface IToken {
   user: IUser;
@@ -27,8 +28,8 @@ export default class CreateSessionsService {
 
     const userId = user.id;
 
-    const token = jwt.sign({ userId }, '82f65147fa52b1658dbb9f507191dc1f', {
-      expiresIn: '5h',
+    const token = jwt.sign({ userId }, authConfig.jwt.secret, {
+      expiresIn: authConfig.jwt.expireIn,
     });
 
     return {
