@@ -7,3 +7,4 @@ export interface IUser {
 }
 
 export type IUserCreate = Omit<IUser, 'id'>;
+export type IUserCreateSessions = Omit<IUser, 'id' | 'name' | 'avatar'>;
