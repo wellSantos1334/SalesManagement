@@ -2,6 +2,7 @@ import AppError from '@shared/errors/AppError';
 import { Request, Response } from 'express';
 import { IUser } from '../infra/interfaces/IUser';
 import CreateUserService from '../services/CreateUserService';
+import DeleteUserService from '../services/DeleteUserService';
 import ListUserService from '../services/ListUserService';
 import ShowUserService from '../services/ShowUserService';
 import UpdateUserService from '../services/UpdateUserService';
@@ -62,5 +63,15 @@ export default class UsersController {
     });
 
     return res.status(200).json({ msg: 'User updated', user });
+  }
+
+  public async delete(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    const deleteUser = new DeleteUserService();
+
+    const deletedUser = await deleteUser.execute(parseInt(id));
+
+    return res.status(200).json({ msg: 'Usuário deletado com sucesso.', deletedUser });
   }
 }

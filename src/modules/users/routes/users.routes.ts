@@ -56,4 +56,14 @@ userRouter.put(
   }),
   userController.update,
 );
+
+userRouter.delete(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.number().required(),
+    },
+  }),
+  userController.delete,
+);
 export default userRouter;

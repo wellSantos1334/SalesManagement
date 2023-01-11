@@ -64,4 +64,10 @@ export class UserRepository implements IUserRepository {
 
     return user;
   }
+
+  async delete(id: number): Promise<IUser | unknown> {
+    const user = this.ormRepository.delete({ id });
+
+    return user;
+  }
 }

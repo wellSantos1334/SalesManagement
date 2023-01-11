@@ -8,4 +8,5 @@ export interface IUserRepository {
   create(data: IUserCreate): Promise<IUser>;
   list(): Promise<IUser[] | null>;
   update(data: IUser): Promise<IUser | null>;
+  delete(id: number): Promise<IUser | unknown>;
 }
